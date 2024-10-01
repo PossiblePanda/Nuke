@@ -8,6 +8,8 @@ def drawChatBox(screen, messages: list[dict], selected_channel: str):
         offset = i*3
         message = messages[selected_channel][-i-1]
 
+        print(message)
+
         if offset >= curses.LINES - 5:
             return
         

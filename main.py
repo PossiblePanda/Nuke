@@ -18,10 +18,14 @@ server_config = {
 
 messages = {}
 
-def connect_server(url: str):
-    print(url)
+def connect_server(url: str, username: str):
     global ws
     ws = websocket.create_connection(url)
+
+    ws.send(json.dumps({
+        "type": "connection_established",
+        "username": username
+    }))
 
 def draw(screen):
     global textbox
@@ -52,7 +56,7 @@ def main(screen):
     curses.curs_set(0)
 
     draw(screen)
-    connect_server(sys.argv[1])
+    connect_server(sys.argv[1], sys.argv[2])
 
     def server_loop():
         global server_config
@@ -72,10 +76,11 @@ def main(screen):
                     if not data["channel"] in messages:
                         messages[data["channel"]] = []
                     messages[data["channel"]].append({
-                        "username": "Possible Panda",
                         "message": data["message"],
-                        "channel": data["channel"]
+                        "channel": data["channel"],
+                        "username": data["username"]
                     })
+
                     draw(screen)
                     screen.refresh()
                 

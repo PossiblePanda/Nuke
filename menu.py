@@ -41,7 +41,7 @@ def main(screen):
 
     def select_server(server):
         url = f"ws://{server['ip']}:{server['port']}"
-        subprocess.call(f'python3 main.py {url}', creationflags=subprocess.CREATE_NEW_CONSOLE)
+        subprocess.call(f'python3 main.py {url} "{server["username"]}"', creationflags=subprocess.CREATE_NEW_CONSOLE)
         sys.quit()
 
     for i in range(len(options["servers"])):
