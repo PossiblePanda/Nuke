@@ -1,1 +1,1 @@
-python menu.py
+python nuke.py
